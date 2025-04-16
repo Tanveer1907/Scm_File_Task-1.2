@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Poll Results</title>
+  <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="main-header">
+    <h1>Voting Zone</h1>
+  </header>
+
+  <nav class="navbar">
+    <div class="nav-container">
+      <ul class="nav-left">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="#">Features</a></li>
+        <li><a href="#">How it Works</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <div class="nav-right">
+        <a href="#" class="signin-btn">Sign In</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="results-section">
+    <h2>Live Poll Results</h2>
+    <canvas id="resultsChart" width="400" height="200"></canvas>
+  </section>
+  <p>Thank you for voting! <a href="results.html">View Results</a></p>
+
+  <script>
+    const data = {
+      labels: ['Option A', 'Option B', 'Option C'],
+      datasets: [{
+        label: 'Votes',
+        data: [20, 14, 8], // Replace with real values
+        backgroundColor: ['#007bff', '#28a745', '#ffc107'],
+        borderWidth: 1
+      }]
+    };
+
+    const config = {
+      type: 'bar',
+      data: data,
+      options: {
+        responsive: true,
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              stepSize: 1
+            }
+          }
+        }
+      }
+    };
+
+    const resultsChart = new Chart(
+      document.getElementById('resultsChart'),
+      config
+    );
+
+    setInterval(() => {
+      data.datasets[0].data = [
+        Math.floor(Math.random() * 50),
+        Math.floor(Math.random() * 50),
+        Math.floor(Math.random() * 50)
+      ];
+      resultsChart.update();
+    }, 3000);
+    // At the top of voting_page.html and results.html
+if (!localStorage.getItem('user')) {
+  window.location.href = "login.html";
+}
+
+  </script>
+  
+</body>
+</html>
